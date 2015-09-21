@@ -19,16 +19,22 @@ spec = do
 
     it "finds the factor table of [2, 4, 5, 10, 20]" $ do
       computeForList [2, 4, 5, 10, 20] `shouldBe` M.fromList [ (2, [])
-                                                       , (4, [2])
-                                                       , (5, [])
-                                                       , (10, [2, 5])
-                                                       , (20, [2, 4, 5, 10])]
+                                                             , (4, [2])
+                                                             , (5, [])
+                                                             , (10, [2, 5])
+                                                             , (20, [2, 4, 5, 10])]
     it "is insensitive to ordering" $ do
       computeForList [20, 10, 5, 4, 2] `shouldBe` M.fromList [ (2, [])
-                                                       , (4, [2])
-                                                       , (5, [])
-                                                       , (10, [2, 5])
-                                                       , (20, [2, 4, 5, 10])]
+                                                             , (4, [2])
+                                                             , (5, [])
+                                                             , (10, [2, 5])
+                                                             , (20, [2, 4, 5, 10])]
+
+    it "removes duplicates" $ do
+      computeForList [10, 10, 5, 4, 2] `shouldBe` M.fromList [ (2, [])
+                                                             , (4, [2])
+                                                             , (5, [])
+                                                             , (10, [2, 5])]
 
     it "blows up on zeroes" $ do
       (computeForList [2, 0, 4] `seq` return ()) `shouldThrow` anyException

@@ -2,6 +2,7 @@ module FactorTable (computeForList, toList) where
 
 import qualified Data.Map as M
 import qualified Data.List as L
+import qualified Data.Set as S
 
 import Types
 
@@ -9,7 +10,7 @@ toList :: FactorTable -> [(Int, [Int])]
 toList = M.toList
 
 computeForList :: [Int] -> FactorTable
-computeForList = L.foldl' insert empty . L.sort
+computeForList = L.foldl' insert empty . L.sort . unique
 
 insert :: FactorTable -> Int -> FactorTable
 insert _ 0 = error "0 is not a valid divisor"
@@ -25,6 +26,8 @@ empty = M.empty
 divides :: Int -> Int -> Bool
 divides x y = y `mod` x == 0
 
+unique :: Ord a => [a] -> [a]
+unique = S.toList . S.fromList
 
 ----------
 
@@ -33,7 +36,7 @@ divides x y = y `mod` x == 0
 -- divisees rather than the other way around. As you can see, they're
 -- very simple modifications of `computeForList` and `insert` above.
 
-computeForList' = L.foldl' insert' empty . reverse . L.sort
+computeForList' = L.foldl' insert' empty . reverse . L.sort . unique
 
 insert' table n = M.insert n divisees table
   where divisees = filter (n `divides`) candidates
