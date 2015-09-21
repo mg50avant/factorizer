@@ -1,13 +1,11 @@
-{-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE FlexibleInstances #-}
-
 module UI.Console where
 
 import Control.Monad
 import Control.Monad.IO.Class
 
 import UI
+import Types
 
-instance (MonadIO m) => UI m where
-  printLine = liftIO . putStrLn . show
-  readLine = liftIO getLine
+instance UI FactorizerM where
+  printLine = FM . liftIO . putStrLn . show
+  readLine = FM (liftIO getLine)

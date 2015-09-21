@@ -9,7 +9,8 @@ import Control.Applicative
 import Control.Monad.State.Class
 
 import Cache
+import Types
 
-instance (Functor m, MonadState (M.Map String String) m) => Cache m where
-  cacheWrite k v = modify $ M.insert (show k) (show v)
-  cacheRead k = M.lookup k <$> get
+instance Cache FactorizerM where
+  cacheWrite k v = FM $ modify $ M.insert (show k) (show v)
+  cacheRead k = FM $ M.lookup k <$> get

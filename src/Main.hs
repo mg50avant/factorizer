@@ -5,7 +5,7 @@ import Control.Monad.State
 
 import qualified Data.Map as M
 
-import Types (FactorizerM)
+import Types (FactorizerM, runFactorizerM)
 import Engine (programLoop)
 import Cache ()
 import Cache.InMemory ()
@@ -13,4 +13,4 @@ import UI ()
 import UI.Console ()
 
 main :: IO ()
-main = evalStateT programLoop M.empty
+main = evalStateT (runFactorizerM programLoop) M.empty
