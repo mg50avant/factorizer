@@ -3,6 +3,7 @@ module Format (format) where
 import Data.List
 
 import FactorTable
+import Types
 
 format :: FactorTable -> String
 format table = let result = intercalate ", " $ map formatPair (toList table)

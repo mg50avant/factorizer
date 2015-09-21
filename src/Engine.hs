@@ -1,10 +1,11 @@
 module Engine where
 
 import Cache
-import FactorTable (FactorTable, fromList)
+import FactorTable (computeForList)
 import Format (format)
 import Parse (parse)
 import UI
+import Types
 
 programLoop :: (Cache m, UI m) => m ()
 programLoop = do
@@ -21,6 +22,6 @@ getFactorTable numbers = do
   cacheResult <- cacheRead (show numbers)
   case cacheResult of
     Just serializedFactorTable -> return (read serializedFactorTable)
-    Nothing -> do let factorTable = fromList numbers
+    Nothing -> do let factorTable = computeForList numbers
                   cacheWrite numbers factorTable
                   return factorTable

@@ -1,6 +1,3 @@
-{-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE FlexibleInstances #-}
-
 module Cache.InMemory where
 
 import qualified Data.Map as M

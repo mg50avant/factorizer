@@ -17,7 +17,7 @@ spec = do
     it "returns the correct factor table" $ do
       let MockCache computation = getFactorTable [1, 2]
           result = evalState computation emptyCacheData
-      result `shouldBe` FT.fromList [1, 2]
+      result `shouldBe` FT.computeForList [1, 2]
 
     it "writes to the cache for new lookups" $ do
       let MockCache computation = getFactorTable [1, 2]
