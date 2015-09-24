@@ -11,5 +11,6 @@ import qualified Data.Map as M
 
 type FactorTable = M.Map Int [Int]
 
-newtype FactorizerM a = FM { runFactorizerM :: StateT (M.Map String String) IO a }
-                      deriving (Functor, Applicative, Monad)
+-- Note that cache and ui are phantom types
+newtype FactorizerM cache ui a = FM { runFactorizerM :: StateT (M.Map String String) IO a }
+                               deriving (Functor, Applicative, Monad)

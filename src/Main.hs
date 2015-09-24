@@ -8,9 +8,12 @@ import qualified Data.Map as M
 import Types (FactorizerM, runFactorizerM)
 import Engine (programLoop)
 import Cache ()
-import Cache.InMemory ()
+import Cache.InMemory (InMemoryCache)
 import UI ()
-import UI.Console ()
+import UI.Console (ConsoleUI)
 
 main :: IO ()
-main = evalStateT (runFactorizerM programLoop) M.empty
+main = evalStateT (runFactorizerM program) M.empty
+  -- Plug in our in-memory cache and console UI
+  where program :: FactorizerM InMemoryCache ConsoleUI ()
+        program = programLoop
